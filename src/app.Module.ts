@@ -4,6 +4,7 @@ import { MongoLogRepository } from './infrastructure/repositories/mongo-log.repo
 import { LogSchema, logSchemaModel } from './infrastructure/schemas/log.schema';
 import { LogController } from './infrastructure/controllers/log.controllers';
 import { CreateLogUseCase } from './application/use-cases/Create-log.use-cases';
+import { FilterLogsByTypeUseCase } from './application/use-cases/filter-log-by-type.use-case';
 
 @Module({
   imports: [
@@ -15,6 +16,6 @@ import { CreateLogUseCase } from './application/use-cases/Create-log.use-cases';
     ]),
   ],
   controllers: [LogController],
-  providers: [MongoLogRepository, CreateLogUseCase],
+  providers: [MongoLogRepository, CreateLogUseCase, FilterLogsByTypeUseCase],
 })
 export class AppModule {}

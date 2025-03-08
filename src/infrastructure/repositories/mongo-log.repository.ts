@@ -5,6 +5,7 @@ import { LogDocument, logSchemaModel } from '../schemas/log.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { LogPayload } from 'src/domain/interfaces/log-paylogs.interface';
+import { LogType } from 'src/domain/enums/log-type.enum';
 
 @Injectable()
 export class MongoLogRepository<T extends LogPayload = LogPayload>
@@ -19,5 +20,10 @@ export class MongoLogRepository<T extends LogPayload = LogPayload>
     const createdLog = new this.logModel(log);
     await createdLog.save();
     return log;
+  }
+
+  async findByType(type: LogType): Promise<Log<T>[]> {
+    const logs = await this.logModel.find({ type }).exec();
+    return logs;
   }
 }
